@@ -39,8 +39,10 @@ class _MyAppState extends State<MyApp> {
     NotificationService.initialise(context);
     // this will be executed when the app is in terminated state and user taps on notification and opent the given route
     FirebaseMessaging.instance.getInitialMessage().then((message) {
-      /*final route=message!.data["route"];
-      Navigator.pushNamed(context, route);*/
+      if(message!=null){
+        final route=message.data["route"];
+        Navigator.of(context).pushNamed(route);
+      }
     });
     // works only when app is in foreground
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
